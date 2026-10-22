@@ -1,0 +1,32 @@
+
+name: README CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate README
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check README file
+        run: |
+          if [ -f README.md ]; then
+            echo "README.md exists"
+          else
+            echo "README.md is missing"
+            exit 1
+          fi
+
+      - name: Display README content
+        run: cat README.md
+
+      - name: Pipeline completed
+        run: echo "CI pipeline executed successfully!"
